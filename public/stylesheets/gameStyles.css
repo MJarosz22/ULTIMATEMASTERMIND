@@ -4,33 +4,71 @@
     background-color: black;
     border-radius: 50%;
     float: left;
+    margin: 4px;
+}
+.smallBall{
+    height: 13px;
+    width: 13px;
+    background-color: black;
+    border-radius: 50%;
+    float: left;
+    margin-top: 2px;
+    margin-left: 2px;
 }
 .row{
     width: 200px;
-    border: 10px;
-    padding: 10px;
-    margin: 10px;
+    border: 1px;
+    margin: 1px;
+    padding: 1px;
     clear: both;
 }
-.gameBord{
-    width: 200px;
+.smallRow{
+    width: 65px;
+    height: 18px;
+    border: 1px;
+    margin-bottom: 14px;
+    padding: 1px;
+    background-color: gray;
+    clear: both;
+}
+.smallBord{
+    width: 170px;
     border: 10px;
-    padding: 20px;
-    margin: 10px;
+    padding: 1px;
+    margin-top: 48px;
+    float: left;
+    background-color: white;
+}
+.gameBord{
+    width: 170px;
+    border: 10px black;
+    padding-left: 30px;
+    padding-top: 20px;
+    padding-bottom: 25px;
+    margin-left: 445px;
+    margin-top: 20px;
     float: left;
     background-color: gray;
 }
 .colorBord{
-    width: 100px;
+    width: 170px;
+    height: 80px;
     border: 10px;
-    padding: 20px;
-    margin: 10px;
+    padding-left: 30px;
+    padding-top: 20px;
+    padding-bottom: 15px;
+    margin: auto;
     background-color: gray;
 }
 .code{
-    width: 100px;
+    width: 160px;
     border: 10px;
-    padding: 20px;
-    margin: 10px; 
+    padding-left: 30px;
+    padding-top: 15px;
+    padding-right: 10px;
+    padding-bottom: 15px;
+    margin-left: 445px; 
+    margin-top: 10px;
     background-color: gray;
+    float: left;
 }
