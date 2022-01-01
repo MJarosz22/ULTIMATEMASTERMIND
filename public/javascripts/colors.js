@@ -7,14 +7,14 @@ function Colors() {
 
     this.initialize = function() {
         this.colors = {
-            White: AVAIL,
-            Black: AVAIL,
-            Orange: AVAIL,
-            Brown: AVAIL,
-            Yellow: AVAIL,
-            Blue: AVAIL,
-            Green: AVAIL,
-            Red: AVAIL
+            A: AVAIL,
+            B: AVAIL,
+            C: AVAIL,
+            D: AVAIL,
+            E: AVAIL,
+            F: AVAIL,
+            G: AVAIL,
+            H: AVAIL
         };
     };
 
