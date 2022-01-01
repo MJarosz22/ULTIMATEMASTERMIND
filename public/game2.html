@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheets/game2Styles.css">
+    <title>Document</title>
+</head>
+<body>
+<div class="GameBoard">
+    <div class="VisibleCodeBoard">
+        <div><div class="codeBall" id="color1"></div></div>
+        <div><div class="codeBall" id="color2"></div></div>
+        <div><div class="codeBall" id="color3"></div></div>
+        <div><div class="codeBall" id="color4"></div></div>
+    </div>
+<div class = "RowBoard">
+    <div class="Rows">
+        <div class="Row11"><div class="bigBall" id="color1"></div></div>
+        <div class="Row11"><div class="bigBall" id="color2"></div></div>
+        <div class="Row11"><div class="bigBall" id="color3"></div></div>
+        <div class="Row11"><div class="bigBall" id="color4"></div></div>
+
+        <div class="Row10"><div class="bigBall" id="color1"></div></div>
+        <div class="Row10"><div class="bigBall" id="color2"></div></div>
+        <div class="Row10"><div class="bigBall" id="color3"></div></div>
+        <div class="Row10"><div class="bigBall" id="color4"></div></div>
+
+        <div class="Row9"><div class="bigBall" id="color1"></div></div>
+        <div class="Row9"><div class="bigBall" id="color2"></div></div>
+        <div class="Row9"><div class="bigBall" id="color3"></div></div>
+        <div class="Row9"><div class="bigBall" id="color4"></div></div>
+
+        <div class="Row8"><div class="bigBall" id="color1"></div></div>
+        <div class="Row8"><div class="bigBall" id="color2"></div></div>
+        <div class="Row8"><div class="bigBall" id="color3"></div></div>
+        <div class="Row8"><div class="bigBall" id="color4"></div></div>
+
+        <div class="Row7"><div class="bigBall" id="color1"></div></div>
+        <div class="Row7"><div class="bigBall" id="color2"></div></div>
+        <div class="Row7"><div class="bigBall" id="color3"></div></div>
+        <div class="Row7"><div class="bigBall" id="color4"></div></div>
+
+        <div class="Row6"><div class="bigBall" id="color1"></div></div>
+        <div class="Row6"><div class="bigBall" id="color2"></div></div>
+        <div class="Row6"><div class="bigBall" id="color3"></div></div>
+        <div class="Row6"><div class="bigBall" id="color4"></div></div>
+
+        <div class="Row5"><div class="bigBall" id="color1"></div></div>
+        <div class="Row5"><div class="bigBall" id="color2"></div></div>
+        <div class="Row5"><div class="bigBall" id="color3"></div></div>
+        <div class="Row5"><div class="bigBall" id="color4"></div></div>
+
+        <div class="Row4"><div class="bigBall" id="color1"></div></div>
+        <div class="Row4"><div class="bigBall" id="color2"></div></div>
+        <div class="Row4"><div class="bigBall" id="color3"></div></div>
+        <div class="Row4"><div class="bigBall" id="color4"></div></div>
+
+        <div class="Row3"><div class="bigBall" id="color1"></div></div>
+        <div class="Row3"><div class="bigBall" id="color2"></div></div>
+        <div class="Row3"><div class="bigBall" id="color3"></div></div>
+        <div class="Row3"><div class="bigBall" id="color4"></div></div>
+
+        <div class="Row2"><div class="bigBall" id="color1"></div></div>
+        <div class="Row2"><div class="bigBall" id="color2"></div></div>
+        <div class="Row2"><div class="bigBall" id="color3"></div></div>
+        <div class="Row2"><div class="bigBall" id="color4"></div></div>
+
+        <div class="Row1"><div class="bigBall" id="color1"></div></div>
+        <div class="Row1"><div class="bigBall" id="color2"></div></div>
+        <div class="Row1"><div class="bigBall" id="color3"></div></div>
+        <div class="Row1"><div class="bigBall" id="color4"></div></div>
+
+        <div class="Row0"><div class="bigBall" id="color1"></div></div>
+        <div class="Row0"><div class="bigBall" id="color2"></div></div>
+        <div class="Row0"><div class="bigBall" id="color3"></div></div>
+        <div class="Row0"><div class="bigBall" id="color4"></div></div>
+
+    </div>
+
+    <div class="HintRows">
+        <div class="HintRow11"><div class="smallBall" ></div></div>
+        <div class="HintRow11"><div class="smallBall" ></div></div>
+        <div class="HintRow11"><div class="smallBall" ></div></div>
+        <div class="HintRow11"><div class="smallBall" ></div></div>
+
+        <div class="HintRow10"><div class="smallBall" ></div></div>
+        <div class="HintRow10"><div class="smallBall" ></div></div>
+        <div class="HintRow10"><div class="smallBall" ></div></div>
+        <div class="HintRow10"><div class="smallBall" ></div></div>
+
+        <div class="HintRow9"><div class="smallBall" ></div></div>
+        <div class="HintRow9"><div class="smallBall" ></div></div>
+        <div class="HintRow9"><div class="smallBall" ></div></div>
+        <div class="HintRow9"><div class="smallBall" ></div></div>
+
+        <div class="HintRow8"><div class="smallBall" ></div></div>
+        <div class="HintRow8"><div class="smallBall" ></div></div>
+        <div class="HintRow8"><div class="smallBall" ></div></div>
+        <div class="HintRow8"><div class="smallBall" ></div></div>
+
+        <div class="HintRow7"><div class="smallBall" ></div></div>
+        <div class="HintRow7"><div class="smallBall" ></div></div>
+        <div class="HintRow7"><div class="smallBall" ></div></div>
+        <div class="HintRow7"><div class="smallBall" ></div></div>
+
+        <div class="HintRow6"><div class="smallBall" ></div></div>
+        <div class="HintRow6"><div class="smallBall" ></div></div>
+        <div class="HintRow6"><div class="smallBall" ></div></div>
+        <div class="HintRow6"><div class="smallBall" ></div></div>
+
+        <div class="HintRow5"><div class="smallBall" ></div></div>
+        <div class="HintRow5"><div class="smallBall" ></div></div>
+        <div class="HintRow5"><div class="smallBall" ></div></div>
+        <div class="HintRow5"><div class="smallBall" ></div></div>
+
+        <div class="HintRow4"><div class="smallBall" ></div></div>
+        <div class="HintRow4"><div class="smallBall" ></div></div>
+        <div class="HintRow4"><div class="smallBall" ></div></div>
+        <div class="HintRow4"><div class="smallBall" ></div></div>
+
+        <div class="HintRow3"><div class="smallBall" ></div></div>
+        <div class="HintRow3"><div class="smallBall" ></div></div>
+        <div class="HintRow3"><div class="smallBall" ></div></div>
+        <div class="HintRow3"><div class="smallBall" ></div></div>
+
+        <div class="HintRow2"><div class="smallBall" ></div></div>
+        <div class="HintRow2"><div class="smallBall" ></div></div>
+        <div class="HintRow2"><div class="smallBall" ></div></div>
+        <div class="HintRow2"><div class="smallBall" ></div></div>
+
+        <div class="HintRow1"><div class="smallBall" ></div></div>
+        <div class="HintRow1"><div class="smallBall" ></div></div>
+        <div class="HintRow1"><div class="smallBall" ></div></div>
+        <div class="HintRow1"><div class="smallBall" ></div></div>
+
+        <div class="HintRow0"><div class="smallBall" ></div></div>
+        <div class="HintRow0"><div class="smallBall" ></div></div>
+        <div class="HintRow0"><div class="smallBall" ></div></div>
+        <div class="HintRow0"><div class="smallBall" ></div></div>
+
+    </div>
+</div>
+    <div class="ColorsBoard">
+        <div><div class="colorBall" id="Red"></div></div>
+        <div><div class="colorBall" id="Blue"></div></div>
+        <div><div class="colorBall" id="Yellow"></div></div>
+        <div><div class="colorBall" id="Green"></div></div>
+        <div><div class="colorBall" id="Purple"></div></div>
+        <div><div class="colorBall" id="Pink"></div></div>
+        <div><div class="colorBall" id="Lightblue"></div></div>
+        <div><div class="colorBall" id="Orange"></div></div>
+</div>
+<div class="StatusBar" id="StatusBar">Status</div>
+    </div>
+
+    
+
+
+    
+</body>
+</html>
