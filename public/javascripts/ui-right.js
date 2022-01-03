@@ -4,12 +4,8 @@ function VisibleCodeBoard() {
     };
   }
 
-function createColors() {
-
-    const colors = ["purple", "orange", "pink", "red", "darkblue", "yellow", "green", "lightblue"];
-}
-
 function StatusBar() {
   this.setStatus = function(status) {
     document.getElementById("status").innerHTML = status;
   };
+}  
