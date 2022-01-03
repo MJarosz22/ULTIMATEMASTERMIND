@@ -2,8 +2,6 @@
  * Game state object
  */
 
-const { colors } = require("debug/src/browser");
-
 function GameState(vc, sb, socket){
     this.playerType = null;
     this.MAX_ALLOWED = Setup.MAX_ALLOWED_GUESSES;
@@ -14,25 +12,27 @@ function GameState(vc, sb, socket){
     this.hintRows = new HintRows();
     this.statusBar = sb;
     this.socket = socket;
+    this.playerBMadeAGuess=false;
 }
 
 /**
  * Row object
  */
-function Row(Id){
-    this.Id = Id;
-    this.currentColorIndex = 1;
-    this.color1 = null;
-    this.color2 = null;
-    this.color3 = null;
-    this.color4 = null;
+function Row(id){
+    this.id = id;
+    this.currentColorIndex = 0;
+    this.color0 = "Black";
+    this.color1 = "Black";
+    this.color2 = "Black";
+    this.color3 = "Black";
+    this.bigBalls = document.getElementsByClassName("Row"+id);
 
 
     /**
      * Checks whether the row is full
      */
     this.isFull = function(){
-        return this.color4!=null;
+        return this.color3!="Black";
     }
 
     /**
@@ -40,14 +40,16 @@ function Row(Id){
      * @param {string} color 
      */
     this.setNextColor = function(color){
+        if(this.currentColorIndex==0)
+            this.color0=color;
         if(this.currentColorIndex==1)
             this.color1=color;
         if(this.currentColorIndex==2)
             this.color2=color;
         if(this.currentColorIndex==3)
             this.color3=color;
-        if(this.currentColorIndex==4)
-            this.color4=color;
+
+        bigBalls[currentColorIndex].style.backgroundColor=color;
         currentColorIndex++;
     }
 
@@ -97,7 +99,8 @@ function HintRow(id){
     this.color2="black";
     this.color3="black";
     this.color4="black";
-    this.currentColorIndex=1;
+    this.currentColorIndex=0;
+    this.smallBalls=document.getElementsByClassName("HintRow"+id);
 
     /**
      * Sets the right amount of perfect(red) balls
@@ -116,7 +119,7 @@ function HintRow(id){
             countPerfect++;
 
         for(let i=0;i<countPerfect;i++){
-            this.setNextColor("red");
+            this.setNextColor("Red");
         }
     }
 
@@ -125,14 +128,15 @@ function HintRow(id){
      * @param {string} color 
      */
     this.setNextColor = function(color){
+        if(this.currentColorIndex==0)
+            this.color0=color;
         if(this.currentColorIndex==1)
             this.color1=color;
         if(this.currentColorIndex==2)
             this.color2=color;
         if(this.currentColorIndex==3)
             this.color3=color;
-        if(this.currentColorIndex==4)
-            this.color4=color;
+        smallBalls[currentColorIndex].style.backgroundColor=color;
         currentColorIndex++;
     }
 
@@ -147,11 +151,11 @@ function HintRows(){
     /**
      * Initialize the array of rows
      */
-    this.initialize = function(){
+    
         for(let i = 0; i <Setup.MAX_ALLOWED_GUESSES;i++){
             let hintRow = new HintRow(i);
             this.hintRows.push(hintRow);
-        }
+        
     }
 
     /**
@@ -234,26 +238,31 @@ Code.prototype.getReel1 = function(){
  * Target Code object. Stores the code to guess. Visible to player "A", hidden for player "B"
  */
 function VisibleCodeBoard(){
-    this.color1="white";
-    this.color2="white";
-    this.color3="white";
-    this.color4="white";
-    this.currentColorIndex=1;
-
+    this.color0="Black";
+    this.color1="Black";
+    this.color2="Black";
+    this.color3="Black";
+    this.currentColorIndex=0;
+    this.codeBalls = document.getElementsByClassName("codeBall");
 
     /**
      * Sets the next color
      * @param {string} color 
      */
     this.setNextColor = function(color){
+        
+        if(this.currentColorIndex==0)
+            this.color0=color;
         if(this.currentColorIndex==1)
-            this.color1=color;
-        if(this.currentColorIndex==2)
             this.color2=color;
-        if(this.currentColorIndex==3)
+        if(this.currentColorIndex==2)
             this.color3=color;
-        if(this.currentColorIndex==4)
+        if(this.currentColorIndex==3)
             this.color4=color;
+            
+        codeBalls[currentColorIndex].style.backgroundColor=color;
+        currentColorIndex++;
+
     }
 
 
@@ -261,13 +270,30 @@ function VisibleCodeBoard(){
      * Hides the code
      */
     this.hide = function(){
-        //TODO
+        Array.from(this.codeBalls).forEach(function(el){
+            el.style.backgroundColor = "Black";
+        });
+        
     }
     /**
     * Reveals the code
     */
     this.reveal = function(){
-        //TODO
+        let index = 0;
+        Array.from(this.codeBalls).forEach(function(el){
+            let color;
+            if(index==0)
+                color=this.color0;
+            if(index==1)
+                color=this.color1;
+            if(index==2)
+                color=this.color2;
+            if(index==3)
+                color=this.color3;
+            el.style.backgroundColor = color ;
+            index++;
+        });
+        
     }
 
     this.getCode = function(){
@@ -279,27 +305,37 @@ function VisibleCodeBoard(){
  * Colors Board object
  */
 function ColorsBoard(gs){
-    this.colors = new Colors();
-    colors.initialize();
+    
 
     this.initialize = function () {
-        const elements = document.querySelectorAll(".color");
+        const elements = document.getElementsByClassName("colorBall");
         Array.from(elements).forEach(function(el){
+            el.style.backgroundColor = el.id;
             el.addEventListener("click", function singleClick(e){
                 const clickedColor = e.target["id"];
                 gs.colorClicked(clickedColor);
 
                 el.removeEventListener("click",singleClick,false);
+                el.style.backgroundColor = "White";
             });
         });
     };
 
-    this.disableColorButton = function(clickedColor){
-        colors.makeColorUnavailable(clickedColor);
+    this.disable = function() {
+        const elements = document.getElementsByClassName("colorBall");
+        Array.from(elements).forEach(function(el){
+            el.style.backgroundColor = el.id;
+            //remove the eventlisteners
+            let new_element = el.cloneNode(true);
+            el.parentNode.replaceChild(new_element, el);
+            });
+        };
+    
     }
+    
 
     
-}
+
 
 
 
@@ -361,7 +397,6 @@ GameState.prototype.whoWon() = function () {
  * @param {string} clickedColor 
  */
 GameState.prototype.colorClicked = function (clickedColor){
-    disableColorButton(clickedColor);
     
     if(this.playerType=="B"){//the player is guessing
         const currentRow = this.Rows.getRow(this.madeGuesses);
@@ -370,10 +405,17 @@ GameState.prototype.colorClicked = function (clickedColor){
             this.updateGame(currentRow.getCode());
     };
     }
-    else{//the player is setting the code
+    else if (this.playerType=="A"&&this.targetCode==null){//the player is setting the code
         this.visibleCodeBoard.setNextColor(clickedColor);
         if(currentRow.isFull())
             this.updateGame(this.visibleCodeBoard.getCode());
+    }
+    else if(this.playerType=="A"){//player B made a guess
+        const currentRow = this.Rows.getRow(this.madeGuesses);
+        currentRow.setNextColor(clickedColor);
+        if(currentRow.isFull()){        
+            this.updateGame(currentRow.getCode());
+    };
     }
 
 };
@@ -390,6 +432,7 @@ GameState.prototype.updateGame = function (providedCode){
 
      //is the game complete?
     const winner = this.whoWon();
+    this.playerBMadeAGuess = true;
     this.madeGuesses++;
 
     //if the game  is over
@@ -415,11 +458,15 @@ GameState.prototype.updateGame = function (providedCode){
     }
     this.socket.close();
     }
-    this.colorsBoard.resetBoard();
+    this.colorsBoard.initialize();
 }
-    else{ //player A set the code
+    else if(this.targetCode==null){ //player A set the code
         this.targetCode=providedCode;
         this.visibleCodeBoard.hide();
+    }
+    else{ //player B made a guess, update the board for player A
+        this.hintRows.getHintRow(this.madeGuesses).set(targetCode,providedCode);
+        this.madeGuesses++;
     }
 }
 
@@ -430,17 +477,6 @@ GameState.prototype.revealCode = function (){
     this.VisibleCodeBoard.reveal();
 }
 
-
-
-
-/**
- * Disable the clicked color
- */
-function disableColorButton(color) {
-    const colorsBoard = document.getElementById("colorsBoard");
-    const colorToDisable = colorsBoard.getElementById(color);
-    colorToDisable.style.color = "black";
-}
 
 
 //set everything up, incl websocket
@@ -476,11 +512,17 @@ function disableColorButton(color) {
             if(gs.getPlayerType() == "A"){
                 sb.setStatus(Status["player1Intro"]);
                 cb.initialize();
+                while(gs.targetCode()==null){
+                    //the player sets the code
+                }
+                cb.disable(); //disable the colorsboard for player A
 
             } else{
                 sb.setStatus(Status["player2IntroNoTargetYet"])
             }
         }
+
+        
 
         //Player B: wait for target code and start playing
         if(
@@ -488,9 +530,17 @@ function disableColorButton(color) {
             gs.getPlayerType() == "B"
         ){
             gs.setTargetCode(incomingMsg.data);
+            gs.visibleCodeBoard.hide();
 
             sb.setStatus(Status["player2Intro"]);
-            //todo
+            cb.initialize();
+            while(gs.whoWon()==null){//wait for the player the game to end
+                if(gs.playerBMadeAGuess){
+                    cb.initialize();            //initialize the colorsboard for player B everytime they made a guess
+                    gs.playerBMadeAGuess = false;
+                }
+            }
+            cb.disable(); //the game is over, disable the colorsboard for  player B
         }
 
         //Player A: wait for guesses and update the board
