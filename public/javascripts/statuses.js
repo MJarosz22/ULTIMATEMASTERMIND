@@ -4,6 +4,7 @@
 
 /**
  * Object containing all status messages.
+ * Hello.
  */
  const Status = {
     gameWon: "Congratulations! You won! ",
