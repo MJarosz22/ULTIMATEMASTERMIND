@@ -16,8 +16,8 @@
     promptChars: "Try again!",
     promptEnglish: "Try again, it has to be a valid code",
     chosen: "Your chosen code: ",
-    player2Intro: `Player 2. You win if you can guess the code within ${Setup.MAX_ALLOWED_GUESSES} tries.`,
-    player2IntroNoTargetYet: `Player 2. Waiting for code to guess. You win if you can guess it within ${Setup.MAX_ALLOWED_GUESSES} tries.`,
+    player2Intro: `Player 2. You win if you can guess the code within 12 tries.`,
+    player2IntroNoTargetYet: `Player 2. Waiting for code to guess. You win if you can guess it within 12 tries.`,
     guessed: "Player 2 guessed code ",
     aborted: "Your gaming partner is no longer available, game aborted. <a href='/play'>Play again!</a>"
   };
