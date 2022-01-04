@@ -21,6 +21,7 @@ app.use(express.static(__dirname + "/public"));
 
 app.get("/play", indexRouter);
 app.get("/", indexRouter);
+app.get("/rules", indexRouter);
 
 const server = http.createServer(app);
 const wss = new websocket.Server({server});

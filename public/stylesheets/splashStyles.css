@@ -1,13 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@900&family=Exo+2&family=Yellowtail&display=swap');
+
+body{
+    background-color: #6ebbd5;
+}
+
 .content{  
-    background-color: lightblue ;
+    background-color: #00B0F0 ;
     margin-right:200px;
     margin-left:200px;
     height: 900px;
     font-size: 30px;
     width: 1200px;
+    border: solid white 2px;
 }
 
-.PlayButton{
+.playButton{
+    font-family: 'Exo 2', sans-serif;
     background-color: red;
     padding: 15px 32px;
     font-size: 60px;
@@ -15,37 +23,23 @@
 
 }
 
-.PlayButton:hover{
+.playButton:hover{
     opacity: 80%;
 }
 
-.RulesButton{
+.rulesButton{
+    font-family: 'Exo 2', sans-serif;
     background-color: rgba(255, 0, 0, 0.842);
     padding: 8px 26px;
     font-size: 30px;
-    float:left;
-    width:100px;
-    height: 40px;
-    margin-left: 300px;
+    clear:both;
+    height: 70px;
 }
-.RulesButton:hover{
+.rulesButton:hover{
     opacity: 50%;
 }
 
-.StatsButton
-{
-    background-color: rgba(255, 0, 0, 0.842);
-    padding: 8px 26px;
-    font-size: 30px;
-    width:100px;
-    height: 40px;
-    margin-left: 300px;
-    float: left;
-}
 
-.StatsButton:hover{
-    opacity: 50%;
-}
 
 
 .rules-content{
@@ -57,7 +51,10 @@
 }
 
 h1{
+    font-family: 'Cinzel Decorative', cursive;
     font-size: 80px;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     
 }
 a:link{

@@ -1,4 +1,6 @@
-
+body{
+    background-color: #6ebbd5;
+}
 .GameBoard{
     position:absolute;
     margin: auto;
@@ -6,9 +8,8 @@
     margin-top: 20px;
     width: 50%;
     height: 750px;
-    
-    background-color: #03318C;
-  
+    background-color: #00B0F0 ;
+    border: 2px solid white;
 }
 
 .VisibleCodeBoard{
@@ -23,13 +24,13 @@
 }
 .VisibleCodeBoard div{
     border:solid black 1px;
-    background-color: #6ebbd5;
+    background-color: white;
 }
 
 .VisibleCodeBoard .codeBall{
     height: 40px;
     width: 40px;
-    background-color: black;
+    background-color: gray;
     border-radius: 50%;
     margin: 4px;
 }
@@ -54,7 +55,7 @@
 }
 
 .Rows {
-    background-color: #6ebbd5;
+    background-color: white;
 }
 
 .Rows div{
@@ -63,7 +64,7 @@
 .Rows .bigBall{
     height: 28px;
     width: 28px;
-    background-color: black;
+    background-color: gray;
     border-radius: 50%;
     margin: 4px;
 }
@@ -80,7 +81,7 @@
     grid-row-gap: 21px;
 }
 .HintRows div{
-    background-color: #6ebbd5;
+    background-color: rgb(56, 55, 55);
 }
 
 .HintRows .smallBall{
@@ -105,14 +106,14 @@
 }
 
 .ColorsBoard div{
-    background-color: #6ebbd5;
+    background-color: white;
     border: solid black 1px;
 }
 
 .ColorsBoard .colorBall{
     height: 50px;
     width: 50px;
-    background-color: black;
+    background-color: gray;
     border-radius: 50%;
     float: left;
     margin: 4px;
@@ -122,9 +123,10 @@
 .StatusBar{
     clear: both;
     width: auto;
-    height: auto;
+    height: 100px;
     margin-top: 30px;
-    background-color: #6ebbd5;
+    background-color: #00B0F0 ;
     font-size: 40px;
     text-align: center;
+    border: 2px solid white;
 }

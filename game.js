@@ -9,20 +9,19 @@ const game = function(gameID) {
   this.playerB = null;
   this.id = gameID;
   this.codeToGuess = null; //first player to join the game, can set the code
-  this.gameState = "0 JOINT"; //"A" means A won, "B" means B won, "ABORTED" means the game was aborted
+  this.gameState = "0 JOINED"; //"A" means A won, "B" means B won, "ABORTED" means the game was aborted
 };
 
 /*
  * All valid transition states are keys of the transitionStates object.
  */
 game.prototype.transitionStates = { 
-  "0 JOINT": 0, 
-  "1 JOINT": 1, 
-  "2 JOINT": 2,
-  "CHAR GUESSED": 3,
-  "A": 4, //A won
-  "B": 5, //B won
-  "ABORTED": 6
+  "0 JOINED": 0, 
+  "1 JOINED": 1, 
+  "2 JOINED": 2,
+  "A": 3, //A won
+  "B": 4, //B won
+  "ABORTED": 5
 };
 
 /*
@@ -30,10 +29,9 @@ game.prototype.transitionStates = {
  * Valid transitions have a value of 1. Invalid transitions have a value of 0.
  */
 game.prototype.transitionMatrix = [
-  [0, 1, 0, 0, 0, 0, 0], //0 JOINT
-  [1, 0, 1, 0, 0, 0, 0], //1 JOINT
-  [0, 0, 0, 1, 0, 0, 1], //2 JOINT (note: once we have two players, there is no way back!)
-  [0, 0, 0, 1, 1, 1, 1], //CHAR GUESSED
+  [0, 1, 0, 0, 0, 0, 0], //0 JOINED
+  [1, 0, 1, 0, 0, 0, 0], //1 JOINED
+  [0, 0, 0, 1, 0, 0, 1], //2 JOINED
   [0, 0, 0, 0, 0, 0, 0], //A WON
   [0, 0, 0, 0, 0, 0, 0], //B WON
   [0, 0, 0, 0, 0, 0, 0] //ABORTED
@@ -97,7 +95,7 @@ game.prototype.setStatus = function(w) {
 game.prototype.setCode = function(c) {
   //two possible options for the current game state:
   //1 JOINT, 2 JOINT
-  if (this.gameState != "1 JOINT" && this.gameState != "2 JOINT") {
+  if (this.gameState != "1 JOINED" && this.gameState != "2 JOINED") {
     return new Error(
       `Trying to set code, but game status is ${this.gameState}`
     );
@@ -118,7 +116,7 @@ game.prototype.getCode = function() {
  * @returns {boolean} returns true if the game is full (2 players), false otherwise
  */
 game.prototype.hasTwoConnectedPlayers = function() {
-  return this.gameState == "2 JOINT";
+  return this.gameState == "2 JOINED";
 };
 
 /**
@@ -127,15 +125,15 @@ game.prototype.hasTwoConnectedPlayers = function() {
  * @returns {(string|Error)} returns "A" or "B" depending on the player added; returns an error if that isn't possible
  */
 game.prototype.addPlayer = function(p) {
-  if (this.gameState != "0 JOINT" && this.gameState != "1 JOINT") {
+  if (this.gameState != "0 JOINED" && this.gameState != "1 JOINED") {
     return new Error(
       `Invalid call to addPlayer, current state is ${this.gameState}`
     );
   }
 
-  const error = this.setStatus("1 JOINT");
+  const error = this.setStatus("1 JOINED");
   if (error instanceof Error) {
-    this.setStatus("2 JOINT");
+    this.setStatus("2 JOINED");
   }
 
   if (this.playerA == null) {
