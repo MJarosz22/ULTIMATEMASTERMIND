@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 (function (exports) {
     /*
      * Client to server: game is complete, the winner is ...
@@ -44,14 +42,14 @@
     exports.S_PLAYER_B = JSON.stringify(exports.O_PLAYER_B);
   
     /*
-     * Player A to server OR server to Player B: this is the target word
+     * Player A to server OR server to Player B: this is the target code
      */
-    exports.T_TARGET_WORD = "SET-TARGET-CODE";
-    exports.O_TARGET_WORD = {
-      type: exports.T_TARGET_WORD,
+    exports.T_TARGET_CODE = "SET-TARGET-CODE";
+    exports.O_TARGET_CODE = {
+      type: exports.T_TARGET_CODE,
       data: null,
     };
-    //exports.S_TARGET_WORD does not exist, as we always need to fill the data property
+    //exports.S_TARGET_CODE does not exist, as we always need to fill the data property
   
     /*
      * Player B to server OR server to Player A: guessed character
