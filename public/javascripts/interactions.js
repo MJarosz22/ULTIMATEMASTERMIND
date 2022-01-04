@@ -13,6 +13,7 @@ function GameState(vc, sb, socket){
     this.hintRows.initialize();
     this.statusBar = sb;
     this.socket = socket;
+    this.winner = null;
 }
 
 /**
@@ -45,12 +46,15 @@ GameState.prototype.setTargetCode = function (code) {
  */
 GameState.prototype.whoWon = function () {
     //code solved
-    if(codeEquals(this.targetCode,this.rows.getRow(this.madeGuesses).getCode()))
+    if(codeEquals(this.targetCode,this.rows.getRow(this.madeGuesses).getCode())){
+        this.winner="B";
         return "B";
+    }
     this.madeGuesses++;
 
     //too many guesses
     if(this.madeGuesses >= Setup.MAX_ALLOWED_GUESSES){
+        this.winner="A";
         return "A";
     }
     
@@ -67,6 +71,9 @@ GameState.prototype.colorClicked = function (clickedColor){
     let currentRow = this.rows.getRow(this.madeGuesses);
     if(this.playerType=="B"){//the player is guessing
         currentRow.setNextColor(clickedColor);
+        let outgoingMsg = Messages.O_MAKE_A_GUESS;
+        outgoingMsg.data=clickedColor;
+        this.socket.send(JSON.stringify(outgoingMsg));
         if(currentRow.isFull()){        
             this.updateGame(currentRow.getCode());
     }
@@ -76,12 +83,12 @@ GameState.prototype.colorClicked = function (clickedColor){
         if(this.visibleCodeBoard.isFull())
             this.updateGame(this.visibleCodeBoard.getCode());
     }
-   /* else if(this.playerType=="A"){//player B made a guess
+   else if(this.playerType=="A"){//player B made a guess
         currentRow.setNextColor(clickedColor);
         if(currentRow.isFull()){        
             this.updateGame(currentRow.getCode());
     }
-    }TO FIX*/
+    }
 
 };
 
@@ -92,8 +99,14 @@ GameState.prototype.colorClicked = function (clickedColor){
 GameState.prototype.updateGame = function (providedCode){
 
     if(this.playerType=="B"&&this.targetCode!=null){//player B guessed
+    //send the message to player A
+    /*
+    let outgoingMsg = Messages.O_MAKE_A_GUESS;
+    outgoingMsg.data=providedCode;
+    this.socket.send(JSON.stringify(outgoingMsg));*/
     this.hintRows.getHintRow(this.madeGuesses).set(this.targetCode,providedCode);
     const winner = this.whoWon();
+    this.statusBar.setStatus(Status["player2Guessed"]);
 
     //if the game  is over
     if (winner != null){
@@ -122,11 +135,29 @@ GameState.prototype.updateGame = function (providedCode){
 }
     else if(this.playerType=="A"&&this.targetCode==null){ //player A set the code
         this.targetCode=providedCode;
+        this.statusBar.setStatus(Status["chosen"]);
         let outgoingMsg = Messages.O_TARGET_CODE;
         outgoingMsg.data=this.targetCode;
         this.socket.send(JSON.stringify(outgoingMsg));       
     }
+    else if(this.playerType=="A"&&this.targetCode!=null){
+        this.hintRows.getHintRow(this.madeGuesses).set(this.targetCode,providedCode);
+        const winner = this.whoWon();
+
+        if (winner != null){
+        
+            //tell the players who won
+            let alertString;
+            if(winner == this.playerType){
+                alertString = Status["gameWon"];
+            } else{
+                alertString = Status["gameLost"]
+            }
+            alertString += Status["playAgain"];
+            this.statusBar.setStatus(alertString);
+    }
     
+    }
 };
 
 
@@ -227,6 +258,16 @@ function HintRow(id){
      * @param {code} providedCode 
      */
     this.set = function(targetCode,providedCode){
+        let countGood=0;
+        if(targetCode.color0==providedCode.color0||targetCode.color0==providedCode.color1||targetCode.color0==providedCode.color2||targetCode.color0==providedCode.color3)
+            countGood++;
+        if(targetCode.color1==providedCode.color0||targetCode.color1==providedCode.color1||targetCode.color1==providedCode.color2||targetCode.color1==providedCode.color3)
+            countGood++;
+        if(targetCode.color2==providedCode.color0||targetCode.color2==providedCode.color1||targetCode.color2==providedCode.color2||targetCode.color2==providedCode.color3)
+            countGood++;
+        if(targetCode.color3==providedCode.color0||targetCode.color3==providedCode.color1||targetCode.color3==providedCode.color2||targetCode.color3==providedCode.color3)
+            countGood++;
+        
         let countPerfect=0;
         if(targetCode.color0==providedCode.color0)
             countPerfect++;
@@ -239,6 +280,10 @@ function HintRow(id){
 
         for(let i=0;i<countPerfect;i++){
             this.setNextColor("Red");
+        }
+        
+        for(let i=0;i<countGood-countPerfect;i++){
+            this.setNextColor("White");
         }
     };
 
@@ -371,16 +416,20 @@ function VisibleCodeBoard(){
     */
     this.reveal = function(){
         let index = 0;
+        const color0=this.color0;
+        const color1=this.color1;
+        const color2=this.color2;
+        const color3=this.color3;
         Array.from(this.codeBalls).forEach(function(el){
             let color;
             if(index==0)
-                color=this.color0;
+                color=color0;
             if(index==1)
-                color=this.color1;
+                color=color1;
             if(index==2)
-                color=this.color2;
+                color=color2;
             if(index==3)
-                color=this.color3;
+                color=color3;
             el.style.backgroundColor = color ;
             index++;
         });
@@ -421,9 +470,11 @@ function ColorsBoard(gs){
 
         
 
+    
     this.initialize = function() {
         const elements = document.getElementsByClassName("colorBall");
         let count = 0;
+
         Array.from(elements).forEach(function(el){
             el.style.backgroundColor = el.id;
             el.addEventListener("click", function singleClick(e){
@@ -461,10 +512,15 @@ function ColorsBoard(gs){
                 el.style.backgroundColor = "White";
                 count++;
                 if(count>=4){
-                    if(gs.getPlayerType()=="A")
+                    if(gs.getPlayerType()=="A"){
                         disable();
-                    if(gs.getPlayerType()=="B")
+                        count=0;
+                    }
+                    if(gs.getPlayerType()=="B"){
+                        disable();
                         initialize();
+                        count=0;
+                    }
                 }
             });
         });
@@ -543,7 +599,7 @@ function ColorsBoard(gs){
         if(incomingMsg.type == Messages.T_MAKE_A_GUESS &&
             gs.getPlayerType() == "A"){
                 sb.setStatus(Status["guessed"]);
-                gs.updateGame(incomingMsg.data);
+                gs.colorClicked(incomingMsg.data);
             }
     };
 
@@ -553,7 +609,7 @@ function ColorsBoard(gs){
 
     //server sends a close event only if the game was aborted from some side
     socket.onclose = function () {
-        if(gs.whoWon()==null){
+        if(gs.winner==null){
             sb.setStatus(Status["aborted"]);
         }
     };
@@ -561,7 +617,6 @@ function ColorsBoard(gs){
     socket.onerror = function () {};
 
 })(); //execute immediately
-
 
 
 

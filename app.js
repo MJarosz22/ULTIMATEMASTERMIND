@@ -89,7 +89,9 @@ wss.on("connection", function connection(ws){
         } else {
             //Player B made a guess
             if(oMsg.type == messages.T_MAKE_A_GUESS){
-                gameObj.playerA.send(message);
+                let msg = messages.O_MAKE_A_GUESS;        
+                msg.data = oMsg.data;
+                gameObj.playerA.send(JSON.stringify(msg));
                 gameObj.setStatus("COLOR GUESSED");
             }
 

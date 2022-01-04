@@ -19,9 +19,10 @@
     grid-template-columns: repeat(4, 50px);
     grid-template-rows: 50px;
     grid-column-gap: 1px;
+    border:solid black 1px;
 }
 .VisibleCodeBoard div{
-   
+    border:solid black 1px;
     background-color: #6ebbd5;
 }
 
@@ -49,14 +50,19 @@
     grid-template-rows: repeat(12, 40px);
     grid-column-gap: 1px;
     grid-row-gap: 1px;
+    border: solid black 1px;
 }
 
 .Rows {
     background-color: #6ebbd5;
 }
+
+.Rows div{
+    border: solid #03318C 1px;
+}
 .Rows .bigBall{
-    height: 32px;
-    width: 32px;
+    height: 28px;
+    width: 28px;
     background-color: black;
     border-radius: 50%;
     margin: 4px;
@@ -64,7 +70,8 @@
 
 .HintRows{
     float:left;
-    margin-left:5px;
+    margin-left:2px;
+    margin-top: 5px;
     width: 80px;
     display: grid;
     grid-template-columns: repeat(4, 20px);
@@ -99,6 +106,7 @@
 
 .ColorsBoard div{
     background-color: #6ebbd5;
+    border: solid black 1px;
 }
 
 .ColorsBoard .colorBall{
@@ -114,7 +122,7 @@
 .StatusBar{
     clear: both;
     width: auto;
-    height: 50px;
+    height: auto;
     margin-top: 30px;
     background-color: #6ebbd5;
     font-size: 40px;

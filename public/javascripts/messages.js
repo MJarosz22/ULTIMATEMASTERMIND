@@ -17,7 +17,7 @@
     exports.S_GAME_ABORTED = JSON.stringify(exports.O_GAME_ABORTED);
   
     /*
-     * Server to client: choose target word
+     * Server to client: choose target code
      */
     exports.O_CHOOSE = { type: "CHOOSE-CODE" };
     exports.S_CHOOSE = JSON.stringify(exports.O_CHOOSE);
