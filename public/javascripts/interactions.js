@@ -1,5 +1,8 @@
 /**
  * Game state object
+ * @param {VisibleCodeBoard} vc VisibleCodeBoard object of the DOM
+ * @param {StatusBar} sb StatusBar object of the DOM
+ * @param {WebSocket} socket WebSocket for communication with the server
  */
 function GameState(vc, sb, socket){
     this.playerType = null;
@@ -63,50 +66,53 @@ GameState.prototype.whoWon = function () {
 
 
 /**
- * disable the color and put the clicked color in the current row (Player B)
+ * disable the color and put the clicked color in the current row for both players (Player B),
  * or set the next color in the visivle code borad (Player A)
+ * 
  * @param {string} clickedColor 
  */
 GameState.prototype.colorClicked = function (clickedColor){
     let currentRow = this.rows.getRow(this.madeGuesses);
-    if(this.playerType=="B"){//the player is guessing
+    //the player is guessing
+    if(this.playerType=="B"){
         currentRow.setNextColor(clickedColor);
         let outgoingMsg = Messages.O_MAKE_A_GUESS;
         outgoingMsg.data=clickedColor;
+        //send the clicked color to Player A
         this.socket.send(JSON.stringify(outgoingMsg));
+        //if the row is full, update the game
         if(currentRow.isFull()){        
             this.updateGame(currentRow.getCode());
+        }
     }
-    }
-    else if (this.playerType=="A"&&this.targetCode==null){//the player is setting the code
+    //the player is setting the code
+    else if (this.playerType=="A"&&this.targetCode==null){
         this.visibleCodeBoard.setNextColor(clickedColor);
         if(this.visibleCodeBoard.isFull())
+            //if the visibleCodeBoard if full, update the game
             this.updateGame(this.visibleCodeBoard.getCode());
     }
-   else if(this.playerType=="A"){//player B made a guess
+    //player B made a guess, update the board for player A
+    else if(this.playerType=="A"){
         currentRow.setNextColor(clickedColor);
         if(currentRow.isFull()){        
             this.updateGame(currentRow.getCode());
-    }
+        }
     }
 
 };
 
 /**
- * 
- * @param {*} providedCode read from the current row
+ * Update the gameState
+ * @param {Code} providedCode code provided: player A setting the code of player B making a guess
  */
 GameState.prototype.updateGame = function (providedCode){
-
-    if(this.playerType=="B"&&this.targetCode!=null){//player B guessed
-    //send the message to player A
-    /*
-    let outgoingMsg = Messages.O_MAKE_A_GUESS;
-    outgoingMsg.data=providedCode;
-    this.socket.send(JSON.stringify(outgoingMsg));*/
-    this.hintRows.getHintRow(this.madeGuesses).set(this.targetCode,providedCode);
-    const winner = this.whoWon();
-    this.statusBar.setStatus(Status["player2Guessed"]);
+    //player B made a guess
+    if(this.playerType=="B"&&this.targetCode!=null){
+        //update the hintrows
+        this.hintRows.getHintRow(this.madeGuesses).set(this.targetCode,providedCode);
+        const winner = this.whoWon();
+        this.statusBar.setStatus(Status["player2Guessed"]);
 
     //if the game  is over
     if (winner != null){
@@ -123,29 +129,31 @@ GameState.prototype.updateGame = function (providedCode){
         this.statusBar.setStatus(alertString);
     
 
-    //player B sends final message
-    if (this.playerType == "B") {
-        let finalMsg = Messages.O_GAME_WON_BY;
-        finalMsg.data = winner;
-        this.socket.send(JSON.stringify(finalMsg));
-    }
+        //player B sends final message
+        if (this.playerType == "B") {
+            let finalMsg = Messages.O_GAME_WON_BY;
+            finalMsg.data = winner;
+            this.socket.send(JSON.stringify(finalMsg));
+        }
+    //close the connection
     this.socket.close();
     }
 
-}
-    else if(this.playerType=="A"&&this.targetCode==null){ //player A set the code
+    }
+    //player A set the code
+    else if(this.playerType=="A"&&this.targetCode==null){ 
         this.targetCode=providedCode;
         this.statusBar.setStatus(Status["chosen"]);
         let outgoingMsg = Messages.O_TARGET_CODE;
         outgoingMsg.data=this.targetCode;
+        //send the code to player B
         this.socket.send(JSON.stringify(outgoingMsg));       
     }
+    //player B send their guess to player A
     else if(this.playerType=="A"&&this.targetCode!=null){
         this.hintRows.getHintRow(this.madeGuesses).set(this.targetCode,providedCode);
         const winner = this.whoWon();
-
         if (winner != null){
-        
             //tell the players who won
             let alertString;
             if(winner == this.playerType){
@@ -155,7 +163,9 @@ GameState.prototype.updateGame = function (providedCode){
             }
             alertString += Status["playAgain"];
             this.statusBar.setStatus(alertString);
-    }
+            //close the connection
+        this.socket.close();
+        }
     
     }
 };
@@ -225,7 +235,6 @@ function Rows(){
             this.rows.push(row);
         }
     };
-
 
     /**
      * 
@@ -324,7 +333,7 @@ function HintRows(){
     };
 
     /**
-     * 
+     * Find the row with given ID
      * @param {int} hintRowId 
      * @returns Row with the given ID
      */
@@ -333,9 +342,6 @@ function HintRows(){
     };
 
 }
-
-
-
 
 /**
  * Code object
@@ -350,9 +356,6 @@ function Code (color0,color1,color2,color3){
     this.color2=color2;
     this.color3=color3;
 }
-
-
-
 
 /**
  * Checks whether two codes are equal
@@ -397,10 +400,12 @@ function VisibleCodeBoard(){
 
     };
 
+    /**
+     * Checks whether the board is full
+     */
     this.isFull = function(){
         return this.color3 !="Black";
     }
-
 
     /**
      * Hides the code
@@ -411,6 +416,7 @@ function VisibleCodeBoard(){
         });
         
     };
+
     /**
     * Reveals the code
     */
@@ -436,6 +442,10 @@ function VisibleCodeBoard(){
         
     };
 
+    /**
+     * Sets the code
+     * @param {Code} code 
+     */
     this.setCode = function(code){
         this.color0=code.color0;
         this.color1=code.color1;
@@ -447,6 +457,10 @@ function VisibleCodeBoard(){
         this.codeBalls[3].style.backgroundColor=this.color3;
     }
 
+    /**
+     * Return the target code stored in the board
+     * @returns {Code} Target code
+     */
     this.getCode = function(){
         return new Code(this.color0, this.color1, this.color2, this.color3);
     };
@@ -457,7 +471,9 @@ function VisibleCodeBoard(){
  */
 function ColorsBoard(gs){
 
-    
+    /**
+     * Makes the board have default colors and removes the eventListeners
+     */
     function disable() {
         const elements = document.getElementsByClassName("colorBall");
         Array.from(elements).forEach(function(el){
@@ -465,11 +481,13 @@ function ColorsBoard(gs){
             //remove the eventlisteners
             let new_element = el.cloneNode(true);
             el.parentNode.replaceChild(new_element, el);
-            });
-        };
+        });
+    };
 
         
-
+    /**HOISTING ISSUES CAUSE THE CODE DUPLICATION
+     * Put the default colors on and add eventListeners to them
+     */
     
     this.initialize = function() {
         const elements = document.getElementsByClassName("colorBall");
@@ -484,6 +502,7 @@ function ColorsBoard(gs){
                 el.removeEventListener("click",singleClick,false);
                 el.style.backgroundColor = "White";
                 count++;
+                //1 turn takes 4 clicks, therefore reset/disable the board every 4 clicks
                 if(count>=4){
                     if(gs.getPlayerType()=="A"){
                         disable();
@@ -498,7 +517,9 @@ function ColorsBoard(gs){
             });
         });
     };
-
+    /**HOISTING ISSUES CAUSE THE CODE DUPLICATION
+     * Put the default colors on and add eventListeners to them
+     */
     function initialize() {
         const elements = document.getElementsByClassName("colorBall");
         let count = 0;
@@ -529,20 +550,6 @@ function ColorsBoard(gs){
     
     
 }
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
 
 //set everything up, incl websocket
 (function setup() {
@@ -581,6 +588,7 @@ function ColorsBoard(gs){
             }
         };
 
+        //tell player A he has to wait for his opponent to join
         if (incomingMsg.type == Messages.T_NO_PLAYER_B&&
             gs.getPlayerType()=="A"){
             sb.setStatus(Status["player1Waiting"]);
@@ -621,6 +629,3 @@ function ColorsBoard(gs){
     socket.onerror = function () {};
 
 })(); //execute immediately
-
-
-

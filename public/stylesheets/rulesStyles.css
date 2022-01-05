@@ -5,8 +5,8 @@ body{
 
 .content{
     background-color: #00B0F0 ;
-    margin-right:200px;
-    margin-left:200px;
+    margin:auto;
+    margin-top:20px;
     height: 900px;
     font-size: 30px;
     width: 1200px;
@@ -23,33 +23,45 @@ body{
     clear:both;
     height: 70px;
 }
+
+.backButton:active{
+    background-color:rgb(87, 5, 5);
+    color: white;
+}
+
 ul{
     clear:both;
     text-align: justify;
-    margin-top: 0px;
+    margin: 30px;
+    font-family: 'Exo 2';
 }
+
 .backButton:hover{
     opacity: 80%;
 }
+
 a:link{
     text-decoration: none;
 }
+
 a:visited{
     color:black;
     text-decoration: none;
 }
+
 h2{
     float:left;
 }
+
 img{
     float:left;
 }
 
 #tooSmall{
     display: none;
- }
+}
  
- @media (max-width: 1400px) or (max-height: 900px) { 
+@media (max-width: 1400px) or (max-height: 900px) { 
      body {
          background-color: black;
      }
@@ -57,9 +69,12 @@ img{
          visibility: hidden;
      }
      #tooSmall {
+        position: absolute;
+        left:20px;
+        top:20px;
          color: green;
          display: block;
          font-size: 50px;
          text-align: center;
      }
-   }
+}

@@ -1,6 +1,9 @@
+/**
+ * Messages exchanged between players and the server
+ */
 (function (exports) {
     /*
-     * Client to server: game is complete, the winner is ...
+     * Client to server: game is complete, winner is:...
      */
     exports.T_GAME_WON_BY = "GAME-WON-BY";
     exports.O_GAME_WON_BY = {
@@ -78,5 +81,7 @@
       type: exports.T_GAME_OVER,
       data: null,
     };
+    //exports.S_MAKE_A_GUESS does not exist, as data needs to be set
+
   })(typeof exports === "undefined" ? (this.Messages = {}) : exports);
-  //if exports is undefined, we are on the client; else the server
+  //if exports is undefined, we are on the client

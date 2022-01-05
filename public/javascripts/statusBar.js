@@ -1,4 +1,11 @@
+/**
+ * The statusBar object of the DOM
+ */
 function StatusBar() {
+  /**
+   * Sets the text displayed on the statusbar
+   * @param {*} status 
+   */
   this.setStatus = function(status) {
     const el = document.getElementById("status");
     //flash the statusbar

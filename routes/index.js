@@ -1,10 +1,12 @@
+/**
+ * All the routes on the website
+ */
 const express = require('express');
 const router = express.Router();
 const gameStatus = require("../statTrack");
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  //res.sendFile("splash.html", { root: "./public" });
   res.render('splash.ejs', { gamesInitialized: gameStatus.gamesInitialized, gamesCompleted: gameStatus.gamesCompleted, codesGuessed: gameStatus.codesGuessed });
 });
 
