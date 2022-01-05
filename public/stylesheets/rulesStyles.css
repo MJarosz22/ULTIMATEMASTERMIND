@@ -44,3 +44,22 @@ h2{
 img{
     float:left;
 }
+
+#tooSmall{
+    display: none;
+ }
+ 
+ @media (max-width: 1400px) or (max-height: 900px) { 
+     body {
+         background-color: black;
+     }
+     .content{
+         visibility: hidden;
+     }
+     #tooSmall {
+         color: green;
+         display: block;
+         font-size: 50px;
+         text-align: center;
+     }
+   }

@@ -81,10 +81,13 @@ wss.on("connection", function connection(ws){
             //player A sent target code
             if(oMsg.type == messages.T_TARGET_CODE){
                 gameObj.setCode(oMsg.data);
-                let msg = messages.O_TARGET_CODE;        
-                msg.data = oMsg.data;
                 if(gameObj.hasTwoConnectedPlayers()){
+                    let msg = messages.O_TARGET_CODE;        
+                    msg.data = oMsg.data;
                     gameObj.playerB.send(JSON.stringify(msg));
+                }
+                else{
+                    con.send( messages.S_NO_PLAYER_B);
                 }
             }
         } else {
@@ -95,10 +98,12 @@ wss.on("connection", function connection(ws){
                 gameObj.playerA.send(JSON.stringify(msg));
                 gameObj.setStatus("COLOR GUESSED");
             }
-
+            //The game is over, player B sent the final message
             if(oMsg.type == messages.T_GAME_WON_BY){
                 gameObj.setStatus(oMsg.data);
                 //update stats
+                if(oMsg.data=="B")
+                    gameStatus.codesGuessed++;
                 gameStatus.gamesCompleted++;
             }
         }

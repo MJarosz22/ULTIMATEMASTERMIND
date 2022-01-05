@@ -15,11 +15,13 @@ body{
 }
 
 .playButton{
+    float:left;
+    margin-left: 190px;
     font-family: 'Exo 2', sans-serif;
     background-color: red;
     padding: 15px 32px;
     font-size: 60px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 
 }
 
@@ -28,6 +30,8 @@ body{
 }
 
 .rulesButton{
+    clear:both;
+    margin-left: 40px;
     font-family: 'Exo 2', sans-serif;
     background-color: rgba(255, 0, 0, 0.842);
     padding: 8px 26px;
@@ -65,3 +69,33 @@ a:visited{
     color:black;
     text-decoration: none;
 }
+
+.buttons{
+    float: left;
+}
+h2{
+    float:left;
+    margin-left: 300px;
+    margin-right:0px;
+    font-family: 'Exo 2', sans-serif;
+}
+#tooSmall{
+   display: none;
+}
+
+@media (max-width: 1400px) or (max-height: 900px) { 
+    body {
+        background-color: black;
+    }
+    .content{
+        visibility: hidden;
+    }
+    #tooSmall {
+        color: green;
+        display: block;
+        font-size: 50px;
+        text-align: center;
+    }
+  }
+
+

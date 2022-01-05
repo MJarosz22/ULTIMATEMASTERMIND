@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@900&family=Exo+2&family=Yellowtail&display=swap');
+
 body{
     background-color: #6ebbd5;
 }
+
+
 .GameBoard{
     position:absolute;
     margin: auto;
@@ -126,7 +130,49 @@ body{
     height: 100px;
     margin-top: 30px;
     background-color: #00B0F0 ;
-    font-size: 40px;
+    color: white;
+    font-family: 'Cinzel Decorative';
+    font-size: 30px;
     text-align: center;
     border: 2px solid white;
 }
+
+#tooSmall{
+    display: none;
+ }
+ 
+ @media (max-width: 1100px) or (max-height: 900px) { 
+     body {
+         background-color: black;
+     }
+     .content{
+         visibility: hidden;
+     }
+     .GameBoard{
+         visibility: hidden;
+     }
+     #tooSmall {
+         color: green;
+         display: block;
+         font-size: 50px;
+         text-align: center;
+     }
+   }
+
+   @keyframes flash{
+    0%{text-shadow: 1px 1px 1px yellow}
+    9.5%{text-shadow: 0px 0px 0px yellow}
+    12.5%{text-shadow: 0px 0px 35px yellow;
+          color: rgb(196, 94, 94);}
+    15.5%{text-shadow: 10px 10px 10px red}
+    
+    27%{text-shadow: 0px 0px 0px yellow}
+    30%{text-shadow: 0px 0px 35px yellow;
+        color: rgb(250, 176, 176);}
+    33%{text-shadow: 0px 0px 0px yellow}
+   
+    97%{text-shadow: 0px 0px 0px yellow}
+    100%{text-shadow: 0px 3px 50px yellow;
+         color: white;}
+  }
+  

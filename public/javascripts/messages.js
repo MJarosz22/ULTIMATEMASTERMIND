@@ -15,7 +15,16 @@
       type: "GAME-ABORTED",
     };
     exports.S_GAME_ABORTED = JSON.stringify(exports.O_GAME_ABORTED);
-  
+
+    /*
+     * Server to player A: there is no player B yet 
+     */
+    exports.T_NO_PLAYER_B = "NO-PLAYER-B";
+    exports.O_NO_PLAYER_B = {
+      type: exports.T_NO_PLAYER_B
+    };
+    exports.S_NO_PLAYER_B = JSON.stringify(exports.O_NO_PLAYER_B);
+
     /*
      * Server to client: choose target code
      */
@@ -52,7 +61,7 @@
     //exports.S_TARGET_CODE does not exist, as we always need to fill the data property
   
     /*
-     * Player B to server OR server to Player A: guessed character
+     * Player B to server OR server to Player A: guessed code
      */
     exports.T_MAKE_A_GUESS = "MAKE-A-GUESS";
     exports.O_MAKE_A_GUESS = {

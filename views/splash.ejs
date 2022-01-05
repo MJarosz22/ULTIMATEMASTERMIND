@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheets/splashStyles.css">
+    <title>ULTIMATE MASTERMIND</title>
+</head>
+<body>
+    <div id="tooSmall">Your screen is too small!</div>
+<center>
+    <div class="content">
+        <center><img src="images/logo.png"></center>
+        <center><h1>ULTIMATE DELFTMIND</h1></center>
+        <h2><%= gamesInitialized-1 %> 
+            <%if (gamesInitialized != 1) { %>
+                games
+            <% } else { %>
+                game
+            <% } %>
+            initialized
+            <br/> 
+            <%= gamesCompleted %> 
+            completed
+            <br/> 
+            <%= codesGuessed %>
+            <%if (codesGuessed != 1) { %>
+                codes guessed
+            <% } else { %>
+                code guessed
+            <% } %>
+        </h2>
+            <form action="/play" method="get"><button type="submit" class="playButton">PLAY</button></form>
+            <form action="/rules" method="get"><button type="submit" class="rulesButton">RULES</button></form>
+    </div>
+</center>
+
+</body>
+</html>

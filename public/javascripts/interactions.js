@@ -581,6 +581,10 @@ function ColorsBoard(gs){
             }
         };
 
+        if (incomingMsg.type == Messages.T_NO_PLAYER_B&&
+            gs.getPlayerType()=="A"){
+            sb.setStatus(Status["player1Waiting"]);
+        }
         
 
         //Player B: wait for target code and start playing
