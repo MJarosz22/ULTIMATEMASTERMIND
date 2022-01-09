@@ -63,7 +63,7 @@ body{
 
 @keyframes example {
     from {background-color: white;}
-    to {background-color: black;}
+    to {background-color: #00B0F0;}
 }
 
 h1{
