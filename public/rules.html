@@ -8,19 +8,24 @@
     <title>Rules</title>
 </head> 
 <body>
+    <div id="tooSmall">Your screen is too small!</div>
 <center>
     <div class="content">
+        <img src="images/tulogo.png"><h2>Player 1</h2>
         <ul>
-        <li>The computer picks a sequence of colors. The number of colors is the code length. The default code length is 4 but it can be changed when starting a new game.</li>
-        <li>The objective of the game is to guess the exact positions of the colors in the computer's sequence.</li>
-        <li>By default, a color can be used only once in a code sequence. If you start a new game with the 'Allow duplicates' checked, then any color can be used any number of times in the code sequence.</li>
-        <li>After filling a line with your guesses and clicking on the 'Check' button, the computer responses with the result of your guess.</li>
-        <li>For each color in your guess that is in the correct color and correct position in the code sequence, the computer display a small red color on the right side of the current guess.</li>
-        <li>For each color in your guess that is in the correct color but is NOT in the correct position in the code sequence, the computer display a small white color on the right side of the current guess.</li>
-        <li>You win the game when you manage to guess all the colors in the code sequence and when they all in the right position.</li>
-        <li>You lose the game if you use all attempts without guessing the computer code sequence.</li>
+        <li>You pick the sequence of colors for your opponent to guess.</li>
+        </ul>
+        <img src="images/tulogo.png"><h2>Player 2</h2>
+        <ul>
+        <li>The objective of the game is to guess the exact positions of colors in the sequence.</li>
+        <li>A color can be used only once in a code sequence.</li>
+        <li>After filling a line with your guesses, the game responses with the result of your guess.</li>
+        <li>For each color in your guess that is in the correct color and correct position in the code sequence, the game displays a small red color.</li>
+        <li>For each color in your guess that is in the correct color but is NOT in the correct position in the code sequence, the game displays a small white color.</li>
+        <li>You win the game if you guess the exact sequence chosen by your opponent.</li>
+        <li>You lose the game if you use all attempts without guessing the actual sequence.</li>
     </ul>
-<a href="splash.html"><center><div class="BackButton" >BACK</div>   </center> </a>
+    <center><form action="/" method="get"><button type="submit" class="backButton">BACK</button></form></center>
 </div>
 </center>
 </body>

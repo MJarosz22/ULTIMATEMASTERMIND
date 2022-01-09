@@ -1,14 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@900&family=Exo+2&family=Yellowtail&display=swap');
+
+body{
+    background-color: #6ebbd5;
+}
 
 .GameBoard{
-    position:absolute;
     margin: auto;
-    left:500px;
-    margin-top: 20px;
+    margin-top:20px;
     width: 50%;
     height: 750px;
-    
-    background-color: #03318C;
-  
+    background-color: #00B0F0 ;
+    border: 2px solid white;
 }
 
 .VisibleCodeBoard{
@@ -19,16 +21,18 @@
     grid-template-columns: repeat(4, 50px);
     grid-template-rows: 50px;
     grid-column-gap: 1px;
+    border:solid black 1px;
 }
+
 .VisibleCodeBoard div{
-   
-    background-color: #6ebbd5;
+    border:solid black 1px;
+    background-color: white;
 }
 
 .VisibleCodeBoard .codeBall{
     height: 40px;
     width: 40px;
-    background-color: black;
+    background-color: gray;
     border-radius: 50%;
     margin: 4px;
 }
@@ -42,29 +46,34 @@
 
 .Rows{
     float: left;
-    
     width: 160px;
     display: grid;
     grid-template-columns: repeat(4, 40px);
     grid-template-rows: repeat(12, 40px);
     grid-column-gap: 1px;
     grid-row-gap: 1px;
+    border: solid black 1px;
 }
 
 .Rows {
-    background-color: #6ebbd5;
+    background-color: white;
+}
+
+.Rows div{
+    border: solid #03318C 1px;
 }
 .Rows .bigBall{
-    height: 32px;
-    width: 32px;
-    background-color: black;
+    height: 28px;
+    width: 28px;
+    background-color: gray;
     border-radius: 50%;
     margin: 4px;
 }
 
 .HintRows{
     float:left;
-    margin-left:5px;
+    margin-left:2px;
+    margin-top: 5px;
     width: 80px;
     display: grid;
     grid-template-columns: repeat(4, 20px);
@@ -72,8 +81,9 @@
     grid-column-gap: 1px;
     grid-row-gap: 21px;
 }
+
 .HintRows div{
-    background-color: #6ebbd5;
+    background-color: rgb(56, 55, 55);
 }
 
 .HintRows .smallBall{
@@ -98,25 +108,74 @@
 }
 
 .ColorsBoard div{
-    background-color: #6ebbd5;
+    background-color: white;
+    border: solid black 1px;
 }
 
 .ColorsBoard .colorBall{
     height: 50px;
     width: 50px;
-    background-color: black;
+    background-color: gray;
     border-radius: 50%;
     float: left;
     margin: 4px;
 }
 
-
 .StatusBar{
     clear: both;
     width: auto;
-    height: 50px;
+    height: 100px;
     margin-top: 30px;
-    background-color: #6ebbd5;
-    font-size: 40px;
+    background-color: #00B0F0 ;
+    color: white;
+    font-family: 'Cinzel Decorative';
+    font-size: 30px;
     text-align: center;
+    border: 2px solid white;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
 }
+
+#tooSmall{
+    display: none;
+ }
+ 
+@media (max-width: 1100px) or (max-height: 900px) { 
+     body {
+         background-color: black;
+     }
+     .content{
+         visibility: hidden;
+     }
+     .GameBoard{
+         visibility: hidden;
+     }
+     #tooSmall {
+         position: absolute;
+         left:20px;
+        top:20px;   
+         color: green;
+         display: block;
+         font-size: 50px;
+         text-align: center;
+     }
+}
+
+@keyframes flash{
+    0%{text-shadow: 1px 1px 1px yellow}
+    9.5%{text-shadow: 0px 0px 0px yellow}
+    12.5%{text-shadow: 0px 0px 35px yellow;
+          color: rgb(196, 94, 94);}
+    15.5%{text-shadow: 10px 10px 10px red}
+    
+    27%{text-shadow: 0px 0px 0px yellow}
+    30%{text-shadow: 0px 0px 35px yellow;
+        color: rgb(250, 176, 176);}
+    33%{text-shadow: 0px 0px 0px yellow}
+   
+    97%{text-shadow: 0px 0px 0px yellow}
+    100%{text-shadow: 0px 3px 50px yellow;
+         color: white;}
+  }
+  

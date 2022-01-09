@@ -21,6 +21,7 @@ app.use(express.static(__dirname + "/public"));
 
 app.get("/play", indexRouter);
 app.get("/", indexRouter);
+app.get("/rules", indexRouter);
 
 const server = http.createServer(app);
 const wss = new websocket.Server({server});
@@ -80,22 +81,29 @@ wss.on("connection", function connection(ws){
             //player A sent target code
             if(oMsg.type == messages.T_TARGET_CODE){
                 gameObj.setCode(oMsg.data);
-                let msg = messages.O_TARGET_CODE;        
-                msg.data = oMsg.data;
                 if(gameObj.hasTwoConnectedPlayers()){
+                    let msg = messages.O_TARGET_CODE;        
+                    msg.data = oMsg.data;
                     gameObj.playerB.send(JSON.stringify(msg));
+                }
+                else{
+                    con.send( messages.S_NO_PLAYER_B);
                 }
             }
         } else {
             //Player B made a guess
             if(oMsg.type == messages.T_MAKE_A_GUESS){
-                gameObj.playerA.send(message);
+                let msg = messages.O_MAKE_A_GUESS;        
+                msg.data = oMsg.data;
+                gameObj.playerA.send(JSON.stringify(msg));
                 gameObj.setStatus("COLOR GUESSED");
             }
-
+            //The game is over, player B sent the final message
             if(oMsg.type == messages.T_GAME_WON_BY){
                 gameObj.setStatus(oMsg.data);
                 //update stats
+                if(oMsg.data=="B")
+                    gameStatus.codesGuessed++;
                 gameStatus.gamesCompleted++;
             }
         }

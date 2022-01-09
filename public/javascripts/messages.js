@@ -1,6 +1,9 @@
+/**
+ * Messages exchanged between players and the server
+ */
 (function (exports) {
     /*
-     * Client to server: game is complete, the winner is ...
+     * Client to server: game is complete, winner is:...
      */
     exports.T_GAME_WON_BY = "GAME-WON-BY";
     exports.O_GAME_WON_BY = {
@@ -15,9 +18,18 @@
       type: "GAME-ABORTED",
     };
     exports.S_GAME_ABORTED = JSON.stringify(exports.O_GAME_ABORTED);
-  
+
     /*
-     * Server to client: choose target word
+     * Server to player A: there is no player B yet 
+     */
+    exports.T_NO_PLAYER_B = "NO-PLAYER-B";
+    exports.O_NO_PLAYER_B = {
+      type: exports.T_NO_PLAYER_B
+    };
+    exports.S_NO_PLAYER_B = JSON.stringify(exports.O_NO_PLAYER_B);
+
+    /*
+     * Server to client: choose target code
      */
     exports.O_CHOOSE = { type: "CHOOSE-CODE" };
     exports.S_CHOOSE = JSON.stringify(exports.O_CHOOSE);
@@ -52,7 +64,7 @@
     //exports.S_TARGET_CODE does not exist, as we always need to fill the data property
   
     /*
-     * Player B to server OR server to Player A: guessed character
+     * Player B to server OR server to Player A: guessed code
      */
     exports.T_MAKE_A_GUESS = "MAKE-A-GUESS";
     exports.O_MAKE_A_GUESS = {
@@ -69,5 +81,7 @@
       type: exports.T_GAME_OVER,
       data: null,
     };
+    //exports.S_MAKE_A_GUESS does not exist, as data needs to be set
+
   })(typeof exports === "undefined" ? (this.Messages = {}) : exports);
-  //if exports is undefined, we are on the client; else the server
+  //if exports is undefined, we are on the client
