@@ -19,6 +19,10 @@
     opacity: 80%;
 }
 
+.playButton:active{
+    opacity: 20%;
+}
+
 .RulesButton{
     background-color: rgba(255, 0, 0, 0.842);
     padding: 8px 26px;
