@@ -62,8 +62,8 @@ body{
 }
 
 @keyframes example {
-    from {background-color: white;}
-    to {background-color: #00B0F0;}
+    from {color: #00B0F0;}
+    to {color: white;}
 }
 
 h1{
