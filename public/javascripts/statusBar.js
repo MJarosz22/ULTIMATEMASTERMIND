@@ -23,6 +23,6 @@ function StatusBar() {
       el.style.animationTimingFunction="";
       el.style.animationFillMode="";
     },
-      800);
+      800);//
   }
 }
