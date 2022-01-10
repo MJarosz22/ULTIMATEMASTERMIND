@@ -24,11 +24,12 @@ body{
 }
 
 .playButton:hover{
-    opacity: 80%;
+    opacity: 50%;
 }
 
 .playButton:active{
-    opacity: 20%;
+    background-color:rgb(87, 5, 5);
+    color: white;
 }
 
 .RulesButton{
