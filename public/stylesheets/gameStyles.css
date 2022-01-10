@@ -121,6 +121,14 @@ body{
     margin: 4px;
 }
 
+.ColorsBoard div:hover{
+    opacity: 70%;
+}
+
+.ColorsBoard div:active{
+    opacity: 0%;
+}
+
 .StatusBar{
     clear: both;
     width: auto;
