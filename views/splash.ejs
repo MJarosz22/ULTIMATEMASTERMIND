@@ -13,6 +13,7 @@
     <div class="content">
         <center><img src="images/logo.png"></center>
         <center><h1>ULTIMATE DELFTMIND</h1></center>
+        <div class="info">
         <h2><%= gamesInitialized-1 %> 
             <%if (gamesInitialized != 1) { %>
                 games
@@ -20,10 +21,14 @@
                 game
             <% } %>
             initialized
-            <br/> 
+            </h2>
+            <br/>
+            <h2>  
             <%= gamesCompleted %> 
             completed
-            <br/> 
+            </h2>
+            <br/>
+            <h2>
             <%= codesGuessed %>
             <%if (codesGuessed != 1) { %>
                 codes guessed
@@ -31,6 +36,7 @@
                 code guessed
             <% } %>
         </h2>
+    </div>
             <form action="/play" method="get"><button type="submit" class="playButton">PLAY</button></form>
             <form action="/rules" method="get"><button type="submit" class="rulesButton">RULES</button></form>
     </div>

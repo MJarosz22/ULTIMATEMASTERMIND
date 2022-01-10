@@ -87,10 +87,21 @@ h1{
 }
 
 h2{
-    float:left;
-    margin-left: 200px;
-    margin-right:0px;
+    clear: both;
     font-family: 'Exo 2', sans-serif;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.info{
+    float: left;
+    margin-left: 100px;
+    margin-right:0px;
+    text-align: left;
+}
+
+h2:before{
+    content: "- ";
 }
 
 #tooSmall{
