@@ -29,6 +29,7 @@ body{
 
 .playButton:active{
     opacity: 20%;
+    color: white;
 }
 
 .RulesButton{
@@ -97,7 +98,7 @@ h2{
    display: none;
 }
 
-@media (max-width: 1400px) or (max-height: 900px) { 
+@media (max-width: 1400px) , (max-height: 900px) { 
     body {
         background-color: black;
     }

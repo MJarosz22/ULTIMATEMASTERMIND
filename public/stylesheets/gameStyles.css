@@ -121,11 +121,11 @@ body{
     margin: 4px;
 }
 
-.ColorsBoard div:hover{
+.ColorsBoard .colorBall:hover{
     opacity: 70%;
 }
 
-.ColorsBoard div:active{
+.ColorsBoard .colorBall:active{
     opacity: 0%;
 }
 
@@ -149,7 +149,7 @@ body{
     display: none;
  }
  
-@media (max-width: 1100px) or (max-height: 900px) { 
+@media (max-width: 1100px), (max-height: 900px) { 
      body {
          background-color: black;
      }
