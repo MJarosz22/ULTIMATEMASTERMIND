@@ -157,7 +157,7 @@ body{
     display: none;
  }
  
-@media (max-width: 1100px), (max-height: 900px) { 
+@media (max-width: 1365px), (max-height: 767px) { 
      body {
          background-color: black;
      }
@@ -166,6 +166,9 @@ body{
      }
      .GameBoard{
          visibility: hidden;
+     }
+     #gameStats{
+         display:none;
      }
      #tooSmall {
          position: absolute;
@@ -176,6 +179,21 @@ body{
          font-size: 50px;
          text-align: center;
      }
+}
+
+#gameStats{
+    position:absolute;
+    left:30%;
+    right:70%;
+    top: 40%;
+    color:white;
+    font-size: 25px;
+    font-family: 'Exo 2';
+    visibility: hidden;
+}
+
+b{
+    font-size: 30px;
 }
 
 @keyframes flash{
@@ -194,4 +212,6 @@ body{
     100%{text-shadow: 0px 3px 50px yellow;
          color: white;}
   }
+
+  
   
