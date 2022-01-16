@@ -111,6 +111,8 @@ GameState.prototype.updateGame = function (providedCode){
     if(this.playerType=="B"&&this.targetCode!=null){
         //update the hintrows
         this.hintRows.getHintRow(this.madeGuesses).set(this.targetCode,providedCode);
+        document.getElementById("guessesMade").innerHTML=this.madeGuesses+1;
+        document.getElementById("guessesLeft").innerHTML=this.MAX_ALLOWED-this.madeGuesses-1;
         const winner = this.whoWon();
         this.statusBar.setStatus(Status["player2Guessed"]);
 
@@ -146,12 +148,15 @@ GameState.prototype.updateGame = function (providedCode){
         this.statusBar.setStatus(Status["chosen"]);
         let outgoingMsg = Messages.O_TARGET_CODE;
         outgoingMsg.data=this.targetCode;
+        document.getElementById("gameStats").style.visibility = "visible";
         //send the code to player B
         this.socket.send(JSON.stringify(outgoingMsg));       
     }
     //player B send their guess to player A
     else if(this.playerType=="A"&&this.targetCode!=null){
         this.hintRows.getHintRow(this.madeGuesses).set(this.targetCode,providedCode);
+        document.getElementById("guessesMade").innerHTML=this.madeGuesses+1;
+        document.getElementById("guessesLeft").innerHTML=this.MAX_ALLOWED-this.madeGuesses-1;
         const winner = this.whoWon();
         if (winner != null){
             //tell the players who won
@@ -602,6 +607,7 @@ function ColorsBoard(gs){
         ){
             gs.setTargetCode(incomingMsg.data);
             gs.visibleCodeBoard.hide();
+            document.getElementById("gameStats").style.visibility = "visible";
 
             sb.setStatus(Status["player2Intro"]);
             cb.initialize();

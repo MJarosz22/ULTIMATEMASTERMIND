@@ -28,6 +28,7 @@ body{
 }
 
 .playButton:active{
+    opacity: 20%;
     background-color:rgb(87, 5, 5);
     color: white;
 }
@@ -109,7 +110,7 @@ h2:before{
    display: none;
 }
 
-@media (max-width: 1400px) or (max-height: 900px) { 
+@media (max-width: 1365px), (max-height: 767px) { 
     body {
         background-color: black;
     }
